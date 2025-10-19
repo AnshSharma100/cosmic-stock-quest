@@ -2,12 +2,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { NavigationTabs } from "@/components/ui/navigation-tabs";
 import { SettingsMenu } from "@/components/ui/settings-menu";
-import { GalaxyPlaceholder } from "@/components/galaxy-placeholder";
+import StarUI from "@/components/StarUI";
 import { Button } from "@/components/ui/button";
 import { StockChart } from "@/components/stock-chart";
 import { ChatbotPanel } from "@/components/chatbot-panel";
 import { Microscope } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { LiveBadge } from "@/components/live-badge";
 
 const mockCryptoAssets = [
   { id: 1, name: "Bitcoin", symbol: "BTC", value: 5000, x: "25%", y: "35%" },
@@ -17,20 +18,41 @@ const mockCryptoAssets = [
 const CryptoPortfolio = () => {
   const navigate = useNavigate();
   const [hasStatement, setHasStatement] = useState(false);
-  const [selectedCrypto, setSelectedCrypto] = useState<typeof mockCryptoAssets[0] | null>(null);
+  const [selectedCrypto, setSelectedCrypto] = useState<any>(null);
   const [showChatbot, setShowChatbot] = useState(false);
 
+  const handleStockClick = (stock: any) => {
+    setSelectedCrypto(stock);
+    setHasStatement(true);
+  };
+
   return (
-    <div className="min-h-screen p-6">
-      <div className="max-w-[1600px] mx-auto h-[calc(100vh-3rem)]">
+    <div className="min-h-screen p-6 relative">
+      {/* Full screen galaxy background */}
+      <div className="fixed inset-0 z-0">
+        <StarUI enableStocks={false} onStockClick={handleStockClick} />
+      </div>
+      
+      {!hasStatement && (
+        <div className="fixed inset-0 flex items-center justify-center z-5">
+          <Button
+            onClick={() => setHasStatement(true)}
+            className="cosmic-gradient hover:opacity-90 transition-opacity text-lg px-8 py-6"
+          >
+            Add Statement
+          </Button>
+        </div>
+      )}
+      
+      <div className="max-w-[1600px] mx-auto h-[calc(100vh-3rem)] relative z-10 pointer-events-none">
         <div className="flex gap-6 h-full">
           {/* Left Side - Crypto Galaxy */}
-          <div className={cn(
-            "flex flex-col transition-all duration-500",
-            selectedCrypto ? "flex-[0.6]" : "flex-1"
-          )}>
-            <div className="flex items-center justify-between mb-4">
-              <NavigationTabs />
+          <div className="flex-1 flex flex-col">
+            <div className="flex items-center justify-between mb-4 pointer-events-auto">
+              <div className="flex items-center gap-3">
+                <NavigationTabs />
+                <LiveBadge />
+              </div>
               <div className="flex items-center gap-2">
                 <Button
                   onClick={() => navigate("/sandbox")}
@@ -43,52 +65,10 @@ const CryptoPortfolio = () => {
                 <SettingsMenu />
               </div>
             </div>
-
-            <div className="flex-1">
-              <GalaxyPlaceholder>
-                <div className="relative w-full h-full">
-                  {!hasStatement ? (
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <Button
-                        onClick={() => setHasStatement(true)}
-                        className="cosmic-gradient hover:opacity-90 transition-opacity text-lg px-8 py-6"
-                      >
-                        Add Statement
-                      </Button>
-                    </div>
-                  ) : (
-                    <>
-                      {mockCryptoAssets.map((crypto) => (
-                        <button
-                          key={crypto.id}
-                          onClick={() => setSelectedCrypto(crypto)}
-                          className="absolute group"
-                          style={{ left: crypto.x, top: crypto.y }}
-                        >
-                          <div className="relative">
-                            <div className="w-20 h-20 rounded-full bg-foreground/20 blur-xl absolute -inset-2 group-hover:bg-foreground/30 transition-all" />
-                            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-yellow-500 to-orange-500 flex items-center justify-center relative shadow-[0_0_20px_hsl(45_100%_50%/0.3)] group-hover:scale-110 transition-transform border border-foreground/20">
-                              <span className="text-sm font-bold">{crypto.symbol.slice(0, 2)}</span>
-                            </div>
-                          </div>
-                          <div className="mt-2 text-center">
-                            <div className="text-xs font-medium">{crypto.name}</div>
-                            <div className="text-xs text-primary font-semibold">${crypto.value}</div>
-                          </div>
-                        </button>
-                      ))}
-                    </>
-                  )}
-                </div>
-              </GalaxyPlaceholder>
-            </div>
           </div>
 
           {/* Right Side - Info Panel */}
-          <div className={cn(
-            "glass-panel rounded-2xl p-6 transition-all duration-500",
-            selectedCrypto ? "w-[600px]" : "w-96"
-          )}>
+          <div className="glass-panel rounded-2xl p-6 w-96 pointer-events-auto">
             {!hasStatement ? (
               <div className="h-full flex flex-col items-center justify-center text-center space-y-6">
                 <div className="space-y-2">
@@ -110,9 +90,13 @@ const CryptoPortfolio = () => {
             ) : selectedCrypto ? (
               <div className="space-y-6 animate-fade-in">
                 <div>
-                  <h2 className="text-3xl font-bold mb-1">{selectedCrypto.name}</h2>
-                  <p className="text-sm text-muted-foreground">{selectedCrypto.symbol}</p>
-                  <p className="text-xl text-primary font-semibold mt-2">${selectedCrypto.value}</p>
+                  <h2 className="text-3xl font-bold mb-1">{selectedCrypto.symbol}</h2>
+                  <p className="text-xl text-primary font-semibold mt-2">${selectedCrypto.price?.toFixed(2)}</p>
+                  <p className={`text-sm font-semibold ${
+                    selectedCrypto.change > 0 ? 'text-green-400' : 'text-red-400'
+                  }`}>
+                    {selectedCrypto.change > 0 ? '+' : ''}{selectedCrypto.change?.toFixed(2)}%
+                  </p>
                 </div>
 
                 <div className="bg-secondary/30 rounded-lg p-4">
@@ -158,10 +142,19 @@ const CryptoPortfolio = () => {
       </div>
 
       {showChatbot && (
-        <ChatbotPanel 
-          stockName={selectedCrypto?.name}
-          className="animate-fade-in"
-        />
+        <div className="pointer-events-none fixed inset-0 z-40">
+          <div className="max-w-[1600px] mx-auto h-[calc(100vh-3rem)] relative flex">
+            <div className="flex-1" />
+            <div className="relative w-96 pointer-events-none">
+              <ChatbotPanel 
+                position="absolute"
+                stockName={selectedCrypto?.name}
+                className="right-0 bottom-6 translate-x-0 pointer-events-auto animate-fade-in"
+                onClose={() => setShowChatbot(false)}
+              />
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

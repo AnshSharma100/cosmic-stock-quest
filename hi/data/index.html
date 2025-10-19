@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Market Visualization</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas></canvas>
+    <div id="labels"></div>
+    <input id="search" type="text" placeholder="Search stock symbol... (press '/' to focus)">
+    <div id="info-panel">
+        <h2 class="panel-title"></h2>
+        <div class="panel-price"></div>
+        <div class="panel-change"></div>
+        <div class="chart-container">
+            <canvas id="price-chart"></canvas>
+        </div>
+        <input type="range" class="panel-slider" min="0" max="1825" value="1825">
+    </div>
+    <script type="module" src="script.js"></script>
+</body>
+</html>

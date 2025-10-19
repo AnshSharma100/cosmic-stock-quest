@@ -1,0 +1,10 @@
+[
+  { "name": "Sirius", "distance": 8.6, "magnitude": -1.46, "x": 3.4, "y": -2.1, "z": 1.7 },
+  { "name": "Canopus", "distance": 310, "magnitude": -0.72, "x": -8.1, "y": 4.2, "z": -1.9 },
+  { "name": "Rigil Kentaurus", "distance": 4.37, "magnitude": -0.27, "x": 0.9, "y": -1.2, "z": 3.1 },
+  { "name": "Arcturus", "distance": 36.7, "magnitude": -0.05, "x": -3.3, "y": 2.8, "z": 4.2 },
+  { "name": "Vega", "distance": 25, "magnitude": 0.03, "x": 5.1, "y": -1.7, "z": -2.8 },
+  { "name": "Capella", "distance": 42.9, "magnitude": 0.08, "x": -1.5, "y": -3.8, "z": 2.2 },
+  { "name": "Rigel", "distance": 860, "magnitude": 0.12, "x": 6.1, "y": 3.2, "z": 1.9 },
+  { "name": "Procyon", "distance": 11.4, "magnitude": 0.38, "x": -2.2, "y": 0.6, "z": -4.4 }
+]

@@ -1,0 +1,199 @@
+/* Info Panel */
+#info-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 380px;
+    height: 100vh;
+    background: rgba(20, 24, 32, 0.85);
+    box-shadow: -4px 0 32px rgba(0,0,0,0.18);
+    backdrop-filter: blur(16px);
+    z-index: 100;
+    color: #fff;
+    padding: 32px 28px 28px 28px;
+    overflow-y: auto;
+    transition: transform 0.5s cubic-bezier(.77,.2,.05,1), opacity 0.4s;
+    transform: translateX(100%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+#info-panel.open {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#info-panel .panel-title {
+    font-size: 1.5em;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255,255,255,0.2);
+}
+
+#info-panel .panel-price {
+    font-size: 1.5em;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #00ffff;
+    text-shadow: 0 0 15px rgba(0,255,255,0.3);
+}
+
+#info-panel .panel-change {
+    font-size: 1.1em;
+    margin-bottom: 18px;
+}
+
+#info-panel .panel-change.up {
+    color: #00FF88;
+}
+
+#info-panel .panel-change.down {
+    color: #FF3366;
+}
+#info-panel .chart-container {
+    width: 100%;
+    height: 180px;
+    margin: 24px 0;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
+}
+
+#info-panel .chart-container canvas {
+    position: relative !important;
+}
+
+#info-panel .panel-slider {
+    width: 100%;
+    margin: 16px 0;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 4px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 2px;
+    outline: none;
+}
+
+#info-panel .panel-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    background: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    transition: all 0.2s ease;
+}
+
+#info-panel .panel-slider::-webkit-slider-thumb:hover {
+    background: #00ffff;
+    box-shadow: 0 0 15px rgba(0,255,255,0.5);
+    transform: scale(1.2);
+}
+
+/* Chart Customization */
+#info-panel .chart-container .chartjs-render-monitor {
+    border-radius: 4px;
+}
+
+#info-panel .chart-container .chartjs-tooltip {
+    background: rgba(0, 0, 0, 0.8) !important;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 4px !important;
+    color: #fff !important;
+    font-size: 12px !important;
+    padding: 8px !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important;
+}
+/* Reset */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+    background: #000;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    color: #fff;
+}
+
+/* Canvas */
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+/* Search */
+#search {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 10;
+    width: 240px;
+    padding: 10px 15px;
+    font-size: 14px;
+    color: #fff;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+#search:focus {
+    background: rgba(255,255,255,0.15);
+    box-shadow: 0 0 20px rgba(255,255,255,0.1);
+}
+
+#search::placeholder {
+    color: rgba(255,255,255,0.5);
+}
+
+/* Stock Labels */
+.label {
+    position: absolute;
+    transform-style: preserve-3d;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+    text-align: center;
+    z-index: 2;
+}
+
+.label .name {
+    font-size: 11px;
+    font-weight: 600;
+    color: #fff;
+    text-shadow: 0 0 8px rgba(255,255,255,0.4);
+    background: rgba(0,0,0,0.7);
+    padding: 2px 6px;
+    border-radius: 4px;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.label .price {
+    font-size: 10px;
+    opacity: 0.85;
+    display: block;
+    background: rgba(0,0,0,0.5);
+    padding: 2px 5px;
+    border-radius: 3px;
+    text-shadow: 0 0 6px rgba(255,255,255,0.2);
+}
+
+/* Highlighted state */
+.label.highlight .name {
+    color: #00ffff;
+    text-shadow: 0 0 15px rgba(0,255,255,0.8);
+    background: rgba(0,0,0,0.8);
+}
