@@ -8,52 +8,52 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
+    --background: 0 0% 5%;
+    --foreground: 0 0% 95%;
 
-    --card: 240 10% 8%;
-    --card-foreground: 0 0% 98%;
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 95%;
 
-    --popover: 240 10% 8%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 95%;
 
-    --primary: 263 70% 60%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 0 0% 85%;
+    --primary-foreground: 0 0% 10%;
 
-    --secondary: 217 33% 17%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 95%;
 
-    --muted: 217 33% 17%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 60%;
 
-    --accent: 263 70% 60%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 0 0% 25%;
+    --accent-foreground: 0 0% 95%;
 
     --destructive: 0 62% 50%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive-foreground: 0 0% 95%;
 
-    --border: 217 33% 17%;
-    --input: 217 33% 17%;
-    --ring: 263 70% 60%;
+    --border: 0 0% 20%;
+    --input: 0 0% 15%;
+    --ring: 0 0% 70%;
 
     --radius: 0.75rem;
     
-    /* Celestial theme colors */
-    --space-black: 240 10% 3.9%;
-    --space-navy: 234 30% 12%;
-    --nebula-purple: 263 70% 60%;
-    --nebula-blue: 217 91% 60%;
-    --star-white: 0 0% 98%;
-    --star-glow: 263 70% 70%;
+    /* Elegant monochrome theme */
+    --space-black: 0 0% 5%;
+    --space-grey: 0 0% 15%;
+    --silver: 0 0% 85%;
+    --mist: 0 0% 60%;
+    --pure-white: 0 0% 98%;
+    --subtle-glow: 0 0% 70%;
     
     /* Gradients */
-    --gradient-cosmic: linear-gradient(135deg, hsl(263 70% 40%), hsl(217 91% 50%));
-    --gradient-nebula: linear-gradient(180deg, hsl(240 10% 3.9%), hsl(234 30% 12%));
-    --gradient-glow: radial-gradient(circle, hsl(263 70% 60% / 0.3), transparent);
+    --gradient-elegant: linear-gradient(135deg, hsl(0 0% 15%), hsl(0 0% 25%));
+    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 5%), hsl(0 0% 10%));
+    --gradient-glow: radial-gradient(circle, hsl(0 0% 85% / 0.1), transparent);
     
     /* Effects */
-    --glow-purple: 0 0 20px hsl(263 70% 60% / 0.5);
-    --glow-blue: 0 0 20px hsl(217 91% 60% / 0.5);
+    --glow-white: 0 0 20px hsl(0 0% 85% / 0.3);
+    --glow-subtle: 0 0 15px hsl(0 0% 70% / 0.2);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     --sidebar-background: 0 0% 98%;
@@ -87,7 +87,7 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground font-sans;
-    background: linear-gradient(180deg, hsl(240 10% 3.9%), hsl(234 30% 12%));
+    background: linear-gradient(180deg, hsl(0 0% 5%), hsl(0 0% 10%));
     background-attachment: fixed;
     min-height: 100vh;
   }
@@ -95,21 +95,21 @@ All colors MUST be HSL.
 
 @layer utilities {
   .glow-text {
-    text-shadow: 0 0 20px hsl(263 70% 70% / 0.5);
+    text-shadow: 0 0 20px hsl(0 0% 85% / 0.4);
   }
   
   .glow-border {
-    box-shadow: 0 0 20px hsl(263 70% 60% / 0.3);
+    box-shadow: 0 0 20px hsl(0 0% 85% / 0.2);
   }
   
   .glass-panel {
-    background: hsl(240 10% 8% / 0.6);
-    backdrop-filter: blur(10px);
-    border: 1px solid hsl(263 70% 60% / 0.2);
+    background: hsl(0 0% 10% / 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid hsl(0 0% 30% / 0.3);
   }
   
   .cosmic-gradient {
-    background: linear-gradient(135deg, hsl(263 70% 40%), hsl(217 91% 50%));
+    background: linear-gradient(135deg, hsl(0 0% 20%), hsl(0 0% 35%));
   }
   
   .star-particle {

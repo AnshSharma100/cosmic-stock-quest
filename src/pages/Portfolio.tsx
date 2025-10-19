@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { NavigationTabs } from "@/components/ui/navigation-tabs";
 import { SettingsMenu } from "@/components/ui/settings-menu";
 import { GalaxyPlaceholder } from "@/components/galaxy-placeholder";
 import { Button } from "@/components/ui/button";
 import { StockChart } from "@/components/stock-chart";
+import { Microscope } from "lucide-react";
 
 const mockPortfolioStocks = [
   { id: 1, name: "Apple", symbol: "AAPL", value: 2000, x: "30%", y: "40%" },
@@ -11,6 +13,7 @@ const mockPortfolioStocks = [
 ];
 
 const Portfolio = () => {
+  const navigate = useNavigate();
   const [hasStatement, setHasStatement] = useState(false);
   const [selectedStock, setSelectedStock] = useState<typeof mockPortfolioStocks[0] | null>(null);
 
@@ -22,7 +25,17 @@ const Portfolio = () => {
           <div className="flex-1 flex flex-col">
             <div className="flex items-center justify-between mb-4">
               <NavigationTabs />
-              <SettingsMenu />
+              <div className="flex items-center gap-2">
+                <Button
+                  onClick={() => navigate("/sandbox")}
+                  variant="ghost"
+                  size="icon"
+                  className="text-foreground hover:bg-secondary hover:text-primary transition-all"
+                >
+                  <Microscope className="h-5 w-5" />
+                </Button>
+                <SettingsMenu />
+              </div>
             </div>
 
             <div className="flex-1">
@@ -47,8 +60,8 @@ const Portfolio = () => {
                           style={{ left: stock.x, top: stock.y }}
                         >
                           <div className="relative">
-                            <div className="w-20 h-20 rounded-full bg-primary/30 blur-xl absolute -inset-2 group-hover:bg-primary/50 transition-all" />
-                            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-blue-500 flex items-center justify-center relative shadow-[0_0_20px_hsl(263_70%_60%/0.5)] group-hover:scale-110 transition-transform">
+                            <div className="w-20 h-20 rounded-full bg-foreground/20 blur-xl absolute -inset-2 group-hover:bg-foreground/30 transition-all" />
+                            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-secondary to-accent flex items-center justify-center relative shadow-[0_0_20px_hsl(0_0%_85%/0.2)] group-hover:scale-110 transition-transform border border-foreground/20">
                               <span className="text-sm font-bold">{stock.symbol.slice(0, 2)}</span>
                             </div>
                           </div>
