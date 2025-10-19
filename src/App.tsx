@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Discovery from "./pages/Discovery";
 import Portfolio from "./pages/Portfolio";
+import CryptoPortfolio from "./pages/CryptoPortfolio";
 import Sandbox from "./pages/Sandbox";
 import NotFound from "./pages/NotFound";
 
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/login" element={<Login />} />
           <Route path="/discovery" element={<Discovery />} />
           <Route path="/portfolio" element={<Portfolio />} />
+          <Route path="/crypto-portfolio" element={<CryptoPortfolio />} />
           <Route path="/sandbox" element={<Sandbox />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

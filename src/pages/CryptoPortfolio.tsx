@@ -9,25 +9,25 @@ import { ChatbotPanel } from "@/components/chatbot-panel";
 import { Microscope } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const mockPortfolioStocks = [
-  { id: 1, name: "Apple", symbol: "AAPL", value: 2000, x: "30%", y: "40%" },
-  { id: 2, name: "NVIDIA", symbol: "NVDA", value: 2000, x: "65%", y: "50%" },
+const mockCryptoAssets = [
+  { id: 1, name: "Bitcoin", symbol: "BTC", value: 5000, x: "25%", y: "35%" },
+  { id: 2, name: "Ethereum", symbol: "ETH", value: 3000, x: "60%", y: "45%" },
 ];
 
-const Portfolio = () => {
+const CryptoPortfolio = () => {
   const navigate = useNavigate();
   const [hasStatement, setHasStatement] = useState(false);
-  const [selectedStock, setSelectedStock] = useState<typeof mockPortfolioStocks[0] | null>(null);
+  const [selectedCrypto, setSelectedCrypto] = useState<typeof mockCryptoAssets[0] | null>(null);
   const [showChatbot, setShowChatbot] = useState(false);
 
   return (
     <div className="min-h-screen p-6">
       <div className="max-w-[1600px] mx-auto h-[calc(100vh-3rem)]">
         <div className="flex gap-6 h-full">
-          {/* Left Side - Portfolio Galaxy */}
+          {/* Left Side - Crypto Galaxy */}
           <div className={cn(
             "flex flex-col transition-all duration-500",
-            selectedStock ? "flex-[0.6]" : "flex-1"
+            selectedCrypto ? "flex-[0.6]" : "flex-1"
           )}>
             <div className="flex items-center justify-between mb-4">
               <NavigationTabs />
@@ -58,22 +58,22 @@ const Portfolio = () => {
                     </div>
                   ) : (
                     <>
-                      {mockPortfolioStocks.map((stock) => (
+                      {mockCryptoAssets.map((crypto) => (
                         <button
-                          key={stock.id}
-                          onClick={() => setSelectedStock(stock)}
+                          key={crypto.id}
+                          onClick={() => setSelectedCrypto(crypto)}
                           className="absolute group"
-                          style={{ left: stock.x, top: stock.y }}
+                          style={{ left: crypto.x, top: crypto.y }}
                         >
                           <div className="relative">
                             <div className="w-20 h-20 rounded-full bg-foreground/20 blur-xl absolute -inset-2 group-hover:bg-foreground/30 transition-all" />
-                            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-secondary to-accent flex items-center justify-center relative shadow-[0_0_20px_hsl(0_0%_85%/0.2)] group-hover:scale-110 transition-transform border border-foreground/20">
-                              <span className="text-sm font-bold">{stock.symbol.slice(0, 2)}</span>
+                            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-yellow-500 to-orange-500 flex items-center justify-center relative shadow-[0_0_20px_hsl(45_100%_50%/0.3)] group-hover:scale-110 transition-transform border border-foreground/20">
+                              <span className="text-sm font-bold">{crypto.symbol.slice(0, 2)}</span>
                             </div>
                           </div>
                           <div className="mt-2 text-center">
-                            <div className="text-xs font-medium">{stock.name}</div>
-                            <div className="text-xs text-primary font-semibold">${stock.value}</div>
+                            <div className="text-xs font-medium">{crypto.name}</div>
+                            <div className="text-xs text-primary font-semibold">${crypto.value}</div>
                           </div>
                         </button>
                       ))}
@@ -87,7 +87,7 @@ const Portfolio = () => {
           {/* Right Side - Info Panel */}
           <div className={cn(
             "glass-panel rounded-2xl p-6 transition-all duration-500",
-            selectedStock ? "w-[600px]" : "w-96"
+            selectedCrypto ? "w-[600px]" : "w-96"
           )}>
             {!hasStatement ? (
               <div className="h-full flex flex-col items-center justify-center text-center space-y-6">
@@ -97,7 +97,7 @@ const Portfolio = () => {
                     <br />
                     TO YOUR
                     <br />
-                    GALAXY
+                    CRYPTO GALAXY
                   </h2>
                 </div>
                 <Button 
@@ -107,12 +107,12 @@ const Portfolio = () => {
                   Ask About Your Portfolio
                 </Button>
               </div>
-            ) : selectedStock ? (
+            ) : selectedCrypto ? (
               <div className="space-y-6 animate-fade-in">
                 <div>
-                  <h2 className="text-3xl font-bold mb-1">{selectedStock.name}</h2>
-                  <p className="text-sm text-muted-foreground">{selectedStock.symbol}</p>
-                  <p className="text-xl text-primary font-semibold mt-2">${selectedStock.value}</p>
+                  <h2 className="text-3xl font-bold mb-1">{selectedCrypto.name}</h2>
+                  <p className="text-sm text-muted-foreground">{selectedCrypto.symbol}</p>
+                  <p className="text-xl text-primary font-semibold mt-2">${selectedCrypto.value}</p>
                 </div>
 
                 <div className="bg-secondary/30 rounded-lg p-4">
@@ -142,7 +142,7 @@ const Portfolio = () => {
                   <h2 className="text-3xl font-bold glow-text">
                     Ask Questions
                     <br />
-                    About Your Galaxy
+                    About Your Crypto Galaxy
                   </h2>
                 </div>
                 <Button 
@@ -159,7 +159,7 @@ const Portfolio = () => {
 
       {showChatbot && (
         <ChatbotPanel 
-          stockName={selectedStock?.name}
+          stockName={selectedCrypto?.name}
           className="animate-fade-in"
         />
       )}
@@ -167,4 +167,4 @@ const Portfolio = () => {
   );
 };
 
-export default Portfolio;
+export default CryptoPortfolio;

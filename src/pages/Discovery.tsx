@@ -6,6 +6,8 @@ import { GalaxyPlaceholder } from "@/components/galaxy-placeholder";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { StockChart } from "@/components/stock-chart";
+import { ChatbotPanel } from "@/components/chatbot-panel";
+import { cn } from "@/lib/utils";
 
 const mockStocks = [
   { id: 1, name: "Apple", symbol: "AAPL", x: "25%", y: "30%" },
@@ -17,13 +19,17 @@ const mockStocks = [
 const Discovery = () => {
   const [selectedStock, setSelectedStock] = useState<typeof mockStocks[0] | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [showChatbot, setShowChatbot] = useState(false);
 
   return (
     <div className="min-h-screen p-6">
       <div className="max-w-[1600px] mx-auto h-[calc(100vh-3rem)]">
         <div className="flex gap-6 h-full">
           {/* Left Side - Galaxy View */}
-          <div className="flex-1 flex flex-col">
+          <div className={cn(
+            "flex flex-col transition-all duration-500",
+            selectedStock ? "flex-[0.6]" : "flex-1"
+          )}>
             <div className="flex items-center justify-between mb-4">
               <NavigationTabs />
               <div className="flex items-center gap-4">
@@ -67,7 +73,10 @@ const Discovery = () => {
           </div>
 
           {/* Right Side - Info Panel */}
-          <div className="w-96 glass-panel rounded-2xl p-6">
+          <div className={cn(
+            "glass-panel rounded-2xl p-6 transition-all duration-500",
+            selectedStock ? "w-[600px]" : "w-96"
+          )}>
             {selectedStock ? (
               <div className="space-y-6 animate-fade-in">
                 <div>
@@ -80,7 +89,10 @@ const Discovery = () => {
                 </div>
 
                 <div className="space-y-3">
-                  <Button className="w-full cosmic-gradient hover:opacity-90 transition-opacity">
+                  <Button 
+                    onClick={() => setShowChatbot(!showChatbot)}
+                    className="w-full cosmic-gradient hover:opacity-90 transition-opacity"
+                  >
                     Ask Questions about {selectedStock.name}
                   </Button>
                   <Button className="w-full bg-secondary hover:bg-secondary/80">
@@ -99,7 +111,10 @@ const Discovery = () => {
                     GALAXY
                   </h2>
                 </div>
-                <Button className="cosmic-gradient hover:opacity-90 transition-opacity">
+                <Button 
+                  onClick={() => setShowChatbot(!showChatbot)}
+                  className="cosmic-gradient hover:opacity-90 transition-opacity"
+                >
                   Ask questions about any stock
                 </Button>
               </div>
@@ -107,6 +122,13 @@ const Discovery = () => {
           </div>
         </div>
       </div>
+
+      {showChatbot && (
+        <ChatbotPanel 
+          stockName={selectedStock?.name}
+          className="animate-fade-in"
+        />
+      )}
     </div>
   );
 };
